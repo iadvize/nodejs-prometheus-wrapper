@@ -1,5 +1,5 @@
 # NodeJS Prometheus Wrapper
-Wrapper to NodeJS Prometheus client ([prom-client](https://github.com/siimon/prom-client))
+Wrapper to official NodeJS Prometheus exporter ([prom-client](https://github.com/siimon/prom-client))
 
 ## WHY
 
