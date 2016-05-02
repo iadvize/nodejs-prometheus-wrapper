@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('supertest');
-var service = require('../examples/server');
+var service = require('./server');
 
 describe('/metrics', function() {
   before(function(done) {
