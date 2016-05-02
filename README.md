@@ -9,9 +9,14 @@ This small library allow to control variables from the whole code, by getting th
 
 ## Example
 
+Execute this command to launch an express server exposing some metrics.
+Browse **localhost:8080/metrics** to monitor the metrics (data is changing after 10s).
+
 ```sh
 $ node examples/index.js
 ```
+
+See the source files in **/examples** to see suggestions of implementation.
 
 ## HOW TO
 
