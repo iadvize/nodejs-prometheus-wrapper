@@ -3,9 +3,9 @@ Wrapper to NodeJS Prometheus client ([prom-client](https://github.com/siimon/pro
 
 ## WHY
 
-The official NodeJS client for prometheus require to have counters, gauges, histograms and summaries in global.
+The official NodeJS client for prometheus requires to transporter the metrics variables in your code (counters, gauges, histograms and summaries).
 
-This small library allow to control variables just like that: ```require('prometheus-wrapper').get("<counter-name>").inc()```
+This small library allow to control variables from the whole code, by getting the metric by name from whatever module, just like that: ```require('prometheus-wrapper').get("<counter-name>").inc()```
 
 ## HOW TO
 
