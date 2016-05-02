@@ -2,6 +2,7 @@
 
 var express = require('express');
 var prometheus = require('../index');
+var app = express();
 
 function example_counter(prometheus) {
     setInterval(function () {
@@ -26,32 +27,32 @@ function example_summary(prometheus) {
     }
 };
 
+prometheus.init('examples', app);
+
+prometheus.createCounter("mycounter", "A number we occasionally increment.");
+prometheus.createGauge("mygauge", "A random number we occasionally set.");
+prometheus.createHistogram("myhistogram", "A chat duration histogram.", {
+    buckets: [ 10, 30, 60, 300, 600, 1800, 3600 ]
+});
+prometheus.createSummary("mysummary", "Compute percentils and median of a random list of numbers.", {
+    percentiles: [ 0.01, 0.1, 0.5, 0.9, 0.99 ]
+});
+
+
+example_counter(prometheus);
+example_gauge(prometheus);
+example_histogram(prometheus);
+example_summary(prometheus);
+
+
+var server = null;
+
 module.exports = {
-  instanciate: function() {
-    var app = express();
-
-      prometheus.init('examples', app);
-
-      prometheus.createCounter("mycounter", "A number we occasionally increment.");
-      prometheus.createGauge("mygauge", "A random number we occasionally set.");
-      prometheus.createHistogram("myhistogram", "A chat duration histogram.", {
-	  buckets: [ 10, 30, 60, 300, 600, 1800, 3600 ]
-      });
-      prometheus.createSummary("mysummary", "Compute percentils and median of a random list of numbers.", {
-	  percentiles: [ 0.01, 0.1, 0.5, 0.9, 0.99 ]
-      });
-
-      app.listen(8080);
-
-      console.log("toto")
-
-      example_counter(prometheus);
-      example_gauge(prometheus);
-      example_histogram(prometheus);
-      example_summary(prometheus);
-
-      console.log("toto")
-
-    return app;
+  app: app,
+  start: function() {
+    server = app.listen(8080);
+  },
+  stop: function() {
+    server.close();
   }
 };

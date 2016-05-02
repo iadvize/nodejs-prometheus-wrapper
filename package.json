@@ -4,7 +4,7 @@
   "description": "Makes prometheus easier to use in a nodejs app",
   "main": "index.js",
   "scripts": {
-    "test": "mocha $(find tests -name '*.test.js')"
+    "test": "mocha -r bootstrap.test.js $(find tests -name '*.test.js')"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "prom-client": "^3.4.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "mocha": "^2.4.5",
     "supertest": "^1.2.0"
   }
