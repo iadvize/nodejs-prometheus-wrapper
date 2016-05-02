@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('supertest');
-var service = require('../examples/server');
+var service = require('./server');
 var prometheus = require('../index');
 
 describe('counter', function() {
