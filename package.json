@@ -1,0 +1,30 @@
+{
+  "name": "prometheus-wrapper",
+  "version": "0.1.0",
+  "description": "Makes prometheus easier to use in a nodejs app",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iadvize/prometheus-wrapper.git"
+  },
+  "keywords": [
+    "prometheus",
+    "wrapper",
+    "nodejs",
+    "metrics"
+  ],
+  "author": "iAdvize",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iadvize/prometheus-wrapper/issues"
+  },
+  "homepage": "https://github.com/iadvize/prometheus-wrapper",
+  "dependencies": {
+    "express": "^4.13.4",
+    "lodash": "^4.11.1",
+    "prom-client": "^3.4.1"
+  }
+}
