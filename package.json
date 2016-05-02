@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-prometheus-wrapper",
+  "name": "prometheus-wrapper",
   "version": "0.1.0",
   "description": "Makes prometheus easier to use in a nodejs app",
   "main": "index.js",
