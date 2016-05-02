@@ -3,14 +3,17 @@
 var express = require('express');
 var prometheus = require('../index');
 
+var app = express();
+var server;
+
+prometheus.init('test', app);
+
 module.exports = {
-  instanciate: function() {
-    var app = express();
-
-    prometheus.init('myapp', app);
-
-    app.listen(8080);
-
-    return app;
+  app: app,
+  start: function() {
+    server = app.listen(8080);
+  },
+  stop: function() {
+    server.close();
   }
 };
