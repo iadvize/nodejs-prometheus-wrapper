@@ -7,8 +7,13 @@ The official NodeJS client for prometheus requires to transporter the metrics va
 
 This small library allow to control variables from the whole code, by getting the metric by name from whatever module, just like that: ```require('prometheus-wrapper').get("<counter-name>").inc()```
 
-## HOW TO
+## Example
 
+```sh
+$ node examples/index.js
+```
+
+## HOW TO
 
 init.js
 
@@ -20,11 +25,18 @@ var app				= express();
 
 prometheus.init("myapp", app);		// if app is not defined, then prometheus wrapper create an http server on port 9000
 
+// Counter
 prometheus.createCounter("mycounter", "A number we occasionally increment.");
+
+// Gauge
 prometheus.createGauge("mygauge", "A random number we occasionally set.");
+
+// Histogram
 prometheus.createHistogram("myhistogram", "A chat duration histogram.", {
 	buckets: [ 10, 30, 60, 300, 600, 1800, 3600 ]
 });
+
+// Summary
 prometheus.createSummary("mysummary", "Compute quantiles and median of a random list of numbers.", {
 	percentiles: [ 0.01, 0.1, 0.5, 0.9, 0.99 ]
 });
@@ -53,7 +65,7 @@ for (var i = 0; i < 100000; ++i) {
 }
 ```
 
-Exposed /metrics :
+Exposed ```/metrics``` :
 
 ```sh
 $ curl 127.0.0.1:8080
