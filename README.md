@@ -23,12 +23,16 @@ See the source files in **/examples** to see suggestions of implementation.
 init.js
 
 ```javascript
-var prometheus		= require("prometheus-wrapper");
+var prometheus = require("prometheus-wrapper");
 
-var express			= require('express');
-var app				= express();
+var express = require('express');
+var app = express();
 
-prometheus.init("myapp", app);		// if app is not defined, then prometheus wrapper create an http server on port 9000
+prometheus.setNamespace("myapp");
+
+app.get('/metrics', function(req, res) {
+  res.end(prometheus.getMetrics());
+});
 
 // Counter
 prometheus.createCounter("mycounter", "A number we occasionally increment.");
@@ -151,9 +155,13 @@ A summary with a base metric name of <basename> exposes multiple time series dur
 
 ## Methods available
 
-### Init
+### setNamespace
 
-- ```client.init(<namespace>, <express-app>)``` => use your own http server
+- ```client.setNamespace(<namespace>)``` => prefixes every metric name
+
+### getMetrics
+
+- ```client.getMetrics()``` => what to expose in your server under /metrics
 
 ### Counter
 
