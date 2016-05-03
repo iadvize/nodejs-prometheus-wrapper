@@ -11,7 +11,7 @@ describe('counter', function() {
   });
 
   it('should be created', function(done) {
-    prometheus.createCounter('mycounter', 'This is my test counter');
+    prometheus.createGauge('mygauge', 'This is my test gauge');
 
     request(service.app)
       .get('/metrics')
@@ -20,13 +20,13 @@ describe('counter', function() {
         if (err) throw err;
 
         const payload = res.text;
-        expect(payload).to.contain('# HELP test_mycounter This is my test counter\n# TYPE test_mycounter counter\n');
+        expect(payload).to.contain('# HELP test_mygauge This is my test gauge\n# TYPE test_mygauge gauge\n');
         done();
       });
   });
 
   it('should be incremented', function(done) {
-    prometheus.get('mycounter').inc();
+    prometheus.get('mygauge').set(42);
 
     request(service.app)
       .get('/metrics')
@@ -35,7 +35,7 @@ describe('counter', function() {
         if (err) throw err;
 
         const payload = res.text;
-        expect(payload).to.contain('# HELP test_mycounter This is my test counter\n# TYPE test_mycounter counter\ntest_mycounter 1\n');
+        expect(payload).to.contain('# HELP test_mygauge This is my test gauge\n# TYPE test_mygauge gauge\ntest_mygauge 42\n');
         done();
       });
   });

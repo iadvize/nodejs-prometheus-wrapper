@@ -11,7 +11,9 @@ describe('counter', function() {
   });
 
   it('should be created', function(done) {
-    prometheus.createCounter('mycounter', 'This is my test counter');
+    prometheus.createSummary('mysummary', 'This is my test summary', {
+      percentiles: [ 0.5 ]
+    });
 
     request(service.app)
       .get('/metrics')
@@ -26,7 +28,8 @@ describe('counter', function() {
   });
 
   it('should be incremented', function(done) {
-    prometheus.get('mycounter').inc();
+    prometheus.get("mysummary").observe(1);
+    prometheus.get("mysummary").observe(2);
 
     request(service.app)
       .get('/metrics')
@@ -35,7 +38,12 @@ describe('counter', function() {
         if (err) throw err;
 
         const payload = res.text;
-        expect(payload).to.contain('# HELP test_mycounter This is my test counter\n# TYPE test_mycounter counter\ntest_mycounter 1\n');
+        const expected = '# HELP test_mysummary This is my test summary\n' +
+                          '# TYPE test_mysummary summary\n' +
+                          'test_mysummary{quantile="0.5"} 1.5\n' +
+                          'test_mysummary_sum 3\n' +
+                          'test_mysummary_count 2';
+        expect(payload).to.contain(expected);
         done();
       });
   });
