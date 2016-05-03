@@ -6,7 +6,11 @@ var app = express();
 
 var server = null;
 
-prometheus.init('test', app);
+prometheus.setNamespace('test');
+
+app.get('/metrics', function(req, res) {
+  res.end(prometheus.getMetrics());
+});
 
 module.exports = {
   app: app,

@@ -4,7 +4,11 @@ var express = require('express');
 var prometheus = require('../index');
 var app = express();
 
-prometheus.init('examples', app);
+prometheus.setNamespace('examples');
+
+app.get('/metrics', function(req, res) {
+  res.end(prometheus.getMetrics());
+});
 
 require('./counter');
 require('./gauge');
