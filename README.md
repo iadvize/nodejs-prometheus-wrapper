@@ -7,7 +7,7 @@ The official NodeJS client for prometheus requires to transporter the metrics va
 
 This small library allow to control variables from the whole code, by getting the metric by name from whatever module, just like that: ```require('prometheus-wrapper').get("<counter-name>").inc()```
 
-## Example
+## EXAMPLES
 
 ```sh
 $ node examples/index.js
@@ -145,6 +145,10 @@ A summary with a base metric name of <basename> exposes multiple time series dur
 
 
 ## Methods available
+
+### Init
+
+- ```client.init(<namespace>, <express-app>)``` => use your own http server
 
 ### Counter
 
