@@ -5,7 +5,7 @@ Wrapper to official NodeJS Prometheus exporter ([prom-client](https://github.com
 
 The official NodeJS client for prometheus requires to transporter the metrics variables in your code (counters, gauges, histograms and summaries).
 
-This small library allow to control variables from the whole code, by getting the metric by name from whatever module, just like that: ```require('prometheus-wrapper').get("<counter-name>").inc()```
+This small library allow to control variables from the whole code, in a singleton, by getting the metric by name, just like that: ```require('prometheus-wrapper').get("<counter-name>").inc()```
 
 ## EXAMPLES
 
