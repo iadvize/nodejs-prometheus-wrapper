@@ -21,15 +21,17 @@ var namespace = '';
  */
 function startExpress(port, callback) {
   assert(_.isFunction(callback));
+  return express();
+}
 
-  var app = express();
-  var server = http.createServer(app);
-
-  server.listen(port, function() {
-    callback(server, app);
+/**
+ * Takes an express instance and exposes a /metrics route
+ * @param app
+ */
+function exposeMetrics(app) {
+  app.get('/metrics', function(req, res) {
+    res.end(client.register.metrics());
   });
-
-  return app;
 }
 
 module.exports = {
@@ -42,18 +44,10 @@ module.exports = {
   init: function(ns, expressApp) {
     assert(_.isString(ns));
     assert(!_.isUndefined(ns));
+    assert(_.isObject(expressApp));
     namespace = ns;
 
-    var app = expressApp;
-
-    if (!expressApp) {
-      var defaultPort = 9000;
-      startExpress(defaultPort, function(server, newApp) {});
-      app = newApp;
-    }
-    app.get('/metrics', function(req, res) {
-      res.end(client.register.metrics());
-    });
+    exposeMetrics(expressApp);
   },
 
   createCounter: function (name, help) {
