@@ -2,7 +2,6 @@
 
 var request = require('supertest');
 var service = require('./server');
-var prometheus = require('../index');
 
 describe('/metrics', function() {
   before(function(done) {
