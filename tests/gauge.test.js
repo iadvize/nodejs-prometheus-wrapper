@@ -4,7 +4,7 @@ var request = require('supertest');
 var service = require('./server');
 var prometheus = require('../index');
 
-describe('counter', function() {
+describe('gauge', function() {
   before(function(done) {
     service.start();
     done();

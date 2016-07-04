@@ -38,23 +38,35 @@ module.exports = {
     return references[name];
   },
 
-  createCounter: function (name, help) {
-    references[name] = new client.Counter(namespace + '_' + name, help);
+  createCounter: function (name, help, labels) {
+    if (labels === undefined) {
+      labels = [];
+    }
+    references[name] = new client.Counter(namespace + '_' + name, help, labels);
     return references[name];
   },
 
-  createGauge: function (name, help) {
-    references[name] = new client.Gauge(namespace + '_' + name, help);
+  createGauge: function (name, help, labels) {
+    if (labels === undefined) {
+      labels = [];
+    }
+    references[name] = new client.Gauge(namespace + '_' + name, help, labels);
     return references[name];
   },
 
-  createHistogram: function (name, help, params) {
-    references[name] = new client.Histogram(namespace + '_' + name, help, params);
+  createHistogram: function (name, help, params, labels) {
+    if (labels === undefined) {
+      labels = [];
+    }
+    references[name] = new client.Histogram(namespace + '_' + name, help, labels, params);
     return references[name];
   },
 
-  createSummary: function (name, help, params) {
-    references[name] = new client.Summary(namespace + '_' + name, help, params);
+  createSummary: function (name, help, params, labels) {
+    if (labels === undefined) {
+      labels = [];
+    }
+    references[name] = new client.Summary(namespace + '_' + name, help, labels, params);
     return references[name];
   }
 };

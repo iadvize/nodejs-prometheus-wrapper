@@ -14,5 +14,6 @@ require('./counter');
 require('./gauge');
 require('./histogram');
 require('./summary');
+require('./labels');
 
 app.listen(8080);
