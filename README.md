@@ -79,9 +79,9 @@ Exposed ```/metrics``` :
 ```sh
 $ curl 127.0.0.1:8080
 
-# HELP myapp_ mycounter A number we occasionally increment.
-# TYPE myapp_ mycounter counter
-myapp_ mycounter 84
+# HELP myapp_mycounter A number we occasionally increment.
+# TYPE myapp_mycounter counter
+myapp_mycounter 84
 
 # HELP myapp_mygauge A random number we occasionally set.
 # TYPE myapp_mygauge gauge
@@ -110,6 +110,34 @@ myapp_mysummary{quantile="0.99"} 0.9901868947762174
 myapp_mysummary_sum 4999.807495853165
 myapp_mysummary_count 10000
 
+```
+
+### Labels
+
+Example:
+
+```javascript
+var prometheus		= require("prometheus-wrapper");
+
+// Init Counter
+prometheus.createCounter("mycounter", "A number we occasionally increment.", ['foo']);
+
+setInterval(function () {
+	prometheus.get("mycounter").inc({foo: 'bar'}, 42);
+	prometheus.get("mycounter").inc({foo: 'baz'}, 21);
+}, 10000);
+
+prometheus.get("mygauge").set(42);
+```
+
+
+```sh
+$ curl 127.0.0.1:8080
+
+# HELP myapp_mycounter A number we occasionally increment.
+# TYPE myapp_mycounter counter
+myapp_mycounter{foo="bar"} 42
+myapp_mycounter{foo="baz"} 42
 ```
 
 ## Full list of metrics types
@@ -165,28 +193,28 @@ A summary with a base metric name of <basename> exposes multiple time series dur
 
 ### Counter
 
-- ```client.createCounter(<name>, <help>)```
+- ```client.createCounter(<name>, <help>, [ <label-list> ])```
 - ```client.get(<name>).get()```
 - ```client.get(<name>).inc()```
 - ```client.get(<name>).inc(<delta>)```
 
 ### Gauge
 
-- ```client.createGauge(<name>, <help>)```
+- ```client.createGauge(<name>, <help>, [ <label-list> ])```
 - ```client.get(<name>).get()```
 - ```client.get(<name>).set(<value>)```
 - ```client.get(<name>).setToCurrentTime()``` => expose a timestamp in ms
 - ```var end = client.get(<name>).startTimer()``` => call ```end()``` to stop the timer, expose a timestamp in seconds
 
 ### Histogram
-- ```client.createHistogram(<name>, <help>, buckets: [ <categories> ])```
+- ```client.createHistogram(<name>, <help>, buckets: [ <categories> ], [ <label-list> ])```
 - ```client.get(<name>).get()```
 - ```client.get(<name>).observe(<value>)```
 - ```client.get(<name>).reset()```
 - ```var end = client.get(<name>).startTimer()``` => call ```end()``` to stop the timer, expose a timestamp in seconds
 
 ### Summary
-- ```client.createSummary(<name>, <help>, buckets: [ <categories> ])```
+- ```client.createSummary(<name>, <help>, buckets: [ <categories> ], [ <label-list> ])```
 - ```client.get(<name>).get()```
 - ```client.get(<name>).observe(<value>)```
 - ```client.get(<name>).reset()```
