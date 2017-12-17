@@ -38,35 +38,41 @@ module.exports = {
     return references[name];
   },
 
-  createCounter: function (name, help, labels) {
-    if (labels === undefined) {
-      labels = [];
-    }
-    references[name] = new client.Counter(namespace + '_' + name, help, labels);
+  createCounter: function (name, help, labelNames = []) {
+    references[name] = new client.Counter({
+      name: namespace + '_' + name,
+      help,
+      labelNames
+    });
     return references[name];
   },
 
-  createGauge: function (name, help, labels) {
-    if (labels === undefined) {
-      labels = [];
-    }
-    references[name] = new client.Gauge(namespace + '_' + name, help, labels);
+  createGauge: function (name, help, labelNames = []) {
+    references[name] = new client.Gauge({
+      name: namespace + '_' + name,
+      help,
+      labelNames
+    });
     return references[name];
   },
 
-  createHistogram: function (name, help, params, labels) {
-    if (labels === undefined) {
-      labels = [];
-    }
-    references[name] = new client.Histogram(namespace + '_' + name, help, labels, params);
+  createHistogram: function (name, help, params, labelNames = []) {
+    references[name] = new client.Histogram({
+      name: namespace + '_' + name,
+      help,
+      params,
+      labelNames
+    });
     return references[name];
   },
 
-  createSummary: function (name, help, params, labels) {
-    if (labels === undefined) {
-      labels = [];
-    }
-    references[name] = new client.Summary(namespace + '_' + name, help, labels, params);
+  createSummary: function (name, help, params, labelNames = []) {
+    references[name] = new client.Summary({
+      name: namespace + '_' + name,
+      help,
+      params,
+      labelNames
+    });
     return references[name];
   }
 };
