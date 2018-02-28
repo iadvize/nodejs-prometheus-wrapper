@@ -22,7 +22,7 @@ describe('summary', function() {
         if (err) throw err;
 
         const payload = res.text;
-        expect(payload).to.contain('# HELP test_mycounter This is my test counter\n# TYPE test_mycounter counter\n');
+        expect(payload).to.contain('# HELP test_mysummary This is my test summary\n# TYPE test_mysummary summary\n');
         done();
       });
   });
