@@ -1,24 +1,13 @@
-# NodeJS Prometheus Wrapper
-Wrapper to official NodeJS Prometheus exporter ([prom-client](https://github.com/siimon/prom-client))
+NodeJS Prometheus Wrapper [![CircleCI](https://circleci.com/gh/iadvize/nodejs-prometheus-wrapper.svg?style=svg)](https://circleci.com/gh/iadvize/nodejs-prometheus-wrapper)
+===========================
 
-## WHY
+Wrapper to official NodeJS Prometheus exporter ([prom-client](https://github.com/siimon/prom-client))
 
 The official NodeJS client for prometheus requires to transporter the metrics variables in your code (counters, gauges, histograms and summaries).
 
 This small library allow to control variables from the whole code, in a singleton, by getting the metric by name, just like that: ```require('prometheus-wrapper').get("<counter-name>").inc()```
 
-## EXAMPLES
-
-Execute this command to launch an express server exposing some metrics.
-Browse **localhost:8080/metrics** to monitor the metrics (data is changing after 10s).
-
-```sh
-$ node examples/index.js
-```
-
-See the source files in **/examples** to see suggestions of implementation.
-
-## HOW TO
+## Examples
 
 init.js
 
@@ -140,23 +129,31 @@ myapp_mycounter{foo="bar"} 42
 myapp_mycounter{foo="baz"} 42
 ```
 
-## Full list of metrics types
+## Install
+
+```
+npm install --save prometheus-wrapper
+```
+
+## Documentation
+
+### Full list of metrics types
 
 [Official documentation](https://prometheus.io/docs/concepts/metric_types/)
 
-### Counter
+#### Counter
 ```
 A counter is a cumulative metric that represents a single numerical value that only ever goes up. A counter is typically used to count requests served, tasks completed, errors occurred, etc. Counters should not be used to expose current counts of items whose number can also go down, e.g. the number of currently running goroutines. Use gauges for this use case.
 ```
 
-### Gauge
+#### Gauge
 ```
 A gauge is a metric that represents a single numerical value that can arbitrarily go up and down.
 
 Gauges are typically used for measured values like temperatures or current memory usage, but also "counts" that can go up and down, like the number of running goroutines.
 ```
 
-### Histogram
+#### Histogram
 
 ```
 A histogram samples observations (usually things like request durations or response sizes) and counts them in configurable buckets. It also provides a sum of all observed values.
@@ -168,7 +165,7 @@ A histogram with a base metric name of <basename> exposes multiple time series d
 - the count of events that have been observed, exposed as <basename>_count (identical to <basename>_bucket{le="+Inf"} above)
 ```
 
-### Summary
+#### Summary
 
 ```
 Similar to a histogram, a summary samples observations (usually things like request durations and response sizes). While it also provides a total count of observations and a sum of all observed values, it calculates configurable quantiles over a sliding time window.
@@ -180,25 +177,24 @@ A summary with a base metric name of <basename> exposes multiple time series dur
 - the count of events that have been observed, exposed as <basename>_count
 ```
 
+### Methods available
 
-## Methods available
-
-### setNamespace
+#### setNamespace
 
 - ```client.setNamespace(<namespace>)``` => prefixes every metric name
 
-### getMetrics
+#### getMetrics
 
 - ```client.getMetrics()``` => what to expose in your server under /metrics
 
-### Counter
+#### Counter
 
 - ```client.createCounter(<name>, <help>, [ <label-list> ])```
 - ```client.get(<name>).get()```
 - ```client.get(<name>).inc()```
 - ```client.get(<name>).inc(<delta>)```
 
-### Gauge
+#### Gauge
 
 - ```client.createGauge(<name>, <help>, [ <label-list> ])```
 - ```client.get(<name>).get()```
@@ -206,16 +202,20 @@ A summary with a base metric name of <basename> exposes multiple time series dur
 - ```client.get(<name>).setToCurrentTime()``` => expose a timestamp in ms
 - ```var end = client.get(<name>).startTimer()``` => call ```end()``` to stop the timer, expose a timestamp in seconds
 
-### Histogram
+#### Histogram
 - ```client.createHistogram(<name>, <help>, buckets: [ <categories> ], [ <label-list> ])```
 - ```client.get(<name>).get()```
 - ```client.get(<name>).observe(<value>)```
 - ```client.get(<name>).reset()```
 - ```var end = client.get(<name>).startTimer()``` => call ```end()``` to stop the timer, expose a timestamp in seconds
 
-### Summary
+#### Summary
 - ```client.createSummary(<name>, <help>, buckets: [ <categories> ], [ <label-list> ])```
 - ```client.get(<name>).get()```
 - ```client.get(<name>).observe(<value>)```
 - ```client.get(<name>).reset()```
 - ```var end = client.get(<name>).startTimer()``` => call ```end()``` to stop the timer, expose a timestamp in seconds
+
+## Contribute
+
+Look at contribution guidelines here : [CONTRIBUTING.md](CONTRIBUTING.md)
