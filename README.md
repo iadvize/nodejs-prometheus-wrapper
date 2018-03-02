@@ -45,7 +45,7 @@ app.listen(8080);
 wherever-in-your-code.js
 
 ```javascript
-var prometheus		= require("prometheus-wrapper");
+var prometheus = require("prometheus-wrapper");
 
 setInterval(function () {
 	prometheus.get("mycounter").inc(42);
@@ -98,7 +98,6 @@ myapp_mysummary{quantile="0.9"} 0.8993228241841542
 myapp_mysummary{quantile="0.99"} 0.9901868947762174
 myapp_mysummary_sum 4999.807495853165
 myapp_mysummary_count 10000
-
 ```
 
 ### Labels
@@ -106,7 +105,7 @@ myapp_mysummary_count 10000
 Example:
 
 ```javascript
-var prometheus		= require("prometheus-wrapper");
+var prometheus = require("prometheus-wrapper");
 
 // Init Counter
 prometheus.createCounter("mycounter", "A number we occasionally increment.", ['foo']);
