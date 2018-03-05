@@ -60,7 +60,7 @@ module.exports = {
     references[name] = new client.Histogram({
       name: namespace + '_' + name,
       help,
-      params,
+      ...params,
       labelNames
     });
     return references[name];
@@ -70,7 +70,7 @@ module.exports = {
     references[name] = new client.Summary({
       name: namespace + '_' + name,
       help,
-      params,
+      ...params,
       labelNames
     });
     return references[name];
