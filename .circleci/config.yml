@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: yarn install && yarn add --peer 'prom-client@^7.2.0'
+          command: yarn install && yarn add --peer 'prom-client@^10.2.2'
       - run:
           name: Run tests
           command: yarn test
