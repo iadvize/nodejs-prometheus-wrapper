@@ -3,22 +3,22 @@
 var request = require('supertest');
 var service = require('./server');
 
-describe('/metrics', function() {
-  before(function(done) {
+describe('/metrics', function () {
+  before(function (done) {
     service.start();
     done();
   });
 
-  it('should be exposed', function() {
+  it('should be exposed', function () {
     request(service.app)
       .get('/metrics')
       .expect(200)
-      .end(function(err, res) {
+      .end(function (err, res) {
         if (err) throw err;
       });
   });
 
-  after(function(done) {
+  after(function (done) {
     service.stop();
     done();
   });
