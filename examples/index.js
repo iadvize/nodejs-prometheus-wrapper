@@ -6,8 +6,8 @@ var app = express();
 
 prometheus.setNamespace('examples');
 
-app.get('/metrics', function(req, res) {
-  res.end(prometheus.getMetrics());
+app.get('/metrics', function (req, res) {
+  prometheus.getMetrics().then(res.end);
 });
 
 require('./counter');
@@ -16,4 +16,4 @@ require('./histogram');
 require('./summary');
 require('./labels');
 
-app.listen(8080);
+app.listen(8083);

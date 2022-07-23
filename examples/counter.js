@@ -2,8 +2,8 @@
 
 var prometheus = require('../index');
 
-prometheus.createCounter("mycounter", "A number we occasionally increment.");
+prometheus.createCounter('mycounter', 'A number we occasionally increment.');
 
 setInterval(function () {
-  prometheus.get("mycounter").inc(42);
+  prometheus.get('mycounter').inc(42);
 }, 10000);

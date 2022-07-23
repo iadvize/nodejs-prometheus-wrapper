@@ -17,7 +17,7 @@ module.exports = {
    * Sets a namespace for all the metrics created after its call
    * @param ns
    */
-  setNamespace: function(ns) {
+  setNamespace: function (ns) {
     assert(_.isString(ns));
     namespace = ns;
   },
@@ -25,7 +25,7 @@ module.exports = {
   /**
    * What to expose in /metrics in your server
    */
-  getMetrics: function() {
+  getMetrics: function () {
     return client.register.metrics();
   },
 
@@ -42,7 +42,7 @@ module.exports = {
     references[name] = new client.Counter({
       name: namespace + '_' + name,
       help,
-      labelNames
+      labelNames,
     });
     return references[name];
   },
@@ -51,7 +51,7 @@ module.exports = {
     references[name] = new client.Gauge({
       name: namespace + '_' + name,
       help,
-      labelNames
+      labelNames,
     });
     return references[name];
   },
@@ -61,7 +61,7 @@ module.exports = {
       name: namespace + '_' + name,
       help,
       ...params,
-      labelNames
+      labelNames,
     });
     return references[name];
   },
@@ -71,8 +71,8 @@ module.exports = {
       name: namespace + '_' + name,
       help,
       ...params,
-      labelNames
+      labelNames,
     });
     return references[name];
-  }
+  },
 };
